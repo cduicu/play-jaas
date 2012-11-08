@@ -1,0 +1,38 @@
+<!-- $Id$ -->
+<configuration>
+
+	<conversionRule conversionWord="coloredLevel"
+		converterClass="play.api.Logger$ColoredLevel" />
+
+	<appender name="FILE" class="ch.qos.logback.core.FileAppender">
+		<file>${application.home}/logs/application.log</file>
+		<encoder>
+			<pattern>%d %-5level [%thread] %logger{0}: %msg%n%xException</pattern>
+		</encoder>
+	</appender>
+
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>%-7coloredLevel %logger{0}: %message%n%xException{5}</pattern>
+		</encoder>
+	</appender>
+
+	<logger name="play" level="INFO" />
+	<logger name="application" level="DEBUG" />
+
+	<root level="ERROR">
+		<appender-ref ref="STDOUT" />
+		<appender-ref ref="FILE" />
+	</root>
+
+	<root level="all">
+		<appender-ref ref="STDOUT" />
+	</root>
+	<logger name="netty" level="all" />
+    <logger name="auth" level="all" />
+	<logger name="controllers" level="all" />
+	<logger name="models" level="all" />
+	<logger name="utils" level="all" />
+	<logger name="views" level="all" />
+
+</configuration>

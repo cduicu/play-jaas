@@ -1,19 +1,9 @@
-//==========================================================================
-// $Id: HttpRequestParmCallback.java,v 0.1 Oct 30, 2012 2:24:57 PM cristiand Exp $
-// (@) Copyright Sigma Systems (Canada)
-// * Based on CVS log
-//==========================================================================
 package auth.impl.callbacks;
 
 import play.mvc.Http;
 import play.mvc.Http.Cookie;
 import play.mvc.Http.Request;
 
-/**
- * @version $Revision: $
- * @author $Author: cristiand $
- * @since $Date: Oct 30, 2012 $
- */
 public class HttpCookieCallback implements IHeadlessCallback {
 
     private String parmVal;

@@ -1,8 +1,3 @@
-//==========================================================================
-// $Id: FederatedAuthModele.java,v 0.1 Nov 3, 2012 3:11:30 PM cristiand Exp $
-// (@) Copyright Sigma Systems (Canada)
-// * Based on CVS log
-//==========================================================================
 package auth.impl;
 
 import java.security.Principal;
@@ -32,10 +27,6 @@ import auth.utils.SAMLUtils;
 /**
  * I am passing information from the login() to the onAuthSucceeded() via a fake principal PendingPrincipal.
  * TODO: is there a better way?
- *
- * @version $Revision: $
- * @author $Author: cristiand $
- * @since $Date: Nov 3, 2012 $
  */
 public class FederatedAuthModule extends AbstractAuthModule {
 

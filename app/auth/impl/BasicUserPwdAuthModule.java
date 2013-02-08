@@ -1,8 +1,3 @@
-//==========================================================================
-// $Id: BasicUserPwdAuthModule.java,v 0.1 Oct 30, 2012 10:34:30 PM cristiand Exp $
-// (@) Copyright Sigma Systems (Canada)
-// * Based on CVS log
-//==========================================================================
 package auth.impl;
 
 import java.security.Principal;
@@ -22,11 +17,6 @@ import auth.impl.callbackHandlers.UsrPwdCallbackHandler;
 import auth.impl.callbacks.HttpUserPwdCallback;
 import auth.models.User;
 
-/**
- * @version $Revision: $
- * @author $Author: cristiand $
- * @since $Date: Oct 30, 2012 $
- */
 public abstract class BasicUserPwdAuthModule extends AbstractAuthModule {
 
     private static Logger logger = LoggerFactory.getLogger(BasicUserPwdAuthModule.class);

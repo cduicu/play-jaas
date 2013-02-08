@@ -1,8 +1,3 @@
-//==========================================================================
-// $Id: SAMLUtil.java,v 0.1 Apr 11, 2012 1:37:26 PM cristiand Exp $
-// (@) Copyright Sigma Systems (Canada)
-// * Based on CVS log
-//==========================================================================
 package auth.utils;
 
 import java.io.BufferedInputStream;
@@ -78,11 +73,6 @@ import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-/**
- * @version $Revision: $
- * @author $Author: cristiand $
- * @since $Date: Apr 11, 2012 $
- */
 public class SAMLUtils {
 
     private static Logger logger = LoggerFactory.getLogger(SAMLUtils.class);

@@ -1,8 +1,3 @@
-//==========================================================================
-// $Id: AuthUtils.java,v 0.1 Oct 30, 2012 10:56:29 PM cristiand Exp $
-// (@) Copyright Sigma Systems (Canada)
-// * Based on CVS log
-//==========================================================================
 package auth.utils;
 
 import java.security.MessageDigest;
@@ -11,11 +6,6 @@ import java.util.HashMap;
 
 import play.Logger;
 
-/**
- * @version $Revision: $
- * @author $Author: cristiand $
- * @since $Date: Oct 30, 2012 $
- */
 public class AuthUtils {
 
     private final static String  ALGORITHM = "SHA-256";

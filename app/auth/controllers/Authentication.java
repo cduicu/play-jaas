@@ -1,8 +1,3 @@
-//==========================================================================
-// $Id: Authentication.java,v 1.1.2.3 2012/07/10 19:06:58 cristiand Exp $
-// (@) Copyright Sigma Systems (Canada)
-// * Based on CVS log
-//==========================================================================
 package auth.controllers;
 
 import javax.security.auth.callback.CallbackHandler;
@@ -23,10 +18,6 @@ import auth.WebSession;
 /**
  * Handles user authentication.
  * It requires configuration of the authentication module via util.Config.getAuthnHandler();
- *
- * @version $Revision: 1.1.2.3 $
- * @author $Author: cristiand $
- * @since $Date: 2012/07/10 19:06:58 $
  */
 public class Authentication extends Controller {
 

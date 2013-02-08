@@ -1,8 +1,3 @@
-//==========================================================================
-// $Id: Configuration.java,v 0.1 Oct 26, 2012 10:55:01 AM cristiand Exp $
-// (@) Copyright Sigma Systems (Canada)
-// * Based on CVS log
-//==========================================================================
 package auth;
 
 import auth.impl.FederatedAuthModule;
@@ -44,10 +39,6 @@ import auth.impl.StubAuthModule;
  *     assertionConsumerServiceUrl="http://play.mybox.com:9000/sp/consumer";
  * };
  * </pre>
- *
- * @version $Revision: $
- * @author $Author: cristiand $
- * @since $Date: Oct 26, 2012 $
  */
 public class Configuration {
 

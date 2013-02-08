@@ -1,41 +1,17 @@
-//==========================================================================
-// $Id: User.java,v 1.1.2.1 2012/06/20 18:38:08 cristiand Exp $
-// (@) Copyright Sigma Systems (Canada)
-// * Based on CVS log
-//==========================================================================
 package auth.models;
 
 import java.security.Principal;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-
 import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.node.ObjectNode;
 
-import play.data.validation.Constraints;
-import play.db.ebean.Model;
 import play.libs.Json;
 
-@SuppressWarnings("serial")
-@Entity
-public class User extends Model implements Principal {
+public class User implements Principal {
 
-    @Id
-    @Constraints.Required
     public String name;
-
-    @Constraints.Required
     public String password;
-
     public String fullName;
-
-    // key class, bean class
-    public static final Finder<String,User> find = new Finder<String,User>(String.class, User.class);
-
-    public static User find(String username, String password) {
-        return User.find.where().eq("name", username).eq("password", password).findUnique();
-    }
 
     public String toJson() {
         ObjectNode on = Json.newObject();

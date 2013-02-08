@@ -1,8 +1,3 @@
-//==========================================================================
-// $Id: WebSession.java,v 1.1.2.2 2012/07/10 17:13:01 cristiand Exp $
-// (@) Copyright Sigma Systems (Canada)
-// * Based on CVS log
-//==========================================================================
 package auth;
 
 import java.io.Serializable;
@@ -16,10 +11,6 @@ import play.mvc.Http;
 
 /**
  * Simulates the Servlet's HTTPSession object.
- *
- * @version $Revision: 1.1.2.2 $
- * @author $Author: cristiand $
- * @since $Date: 2012/07/10 17:13:01 $
  */
 public class WebSession {
 

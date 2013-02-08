@@ -1,8 +1,3 @@
-//==========================================================================
-// $Id: UserNamePasswordCredentials.java,v 0.1 Oct 26, 2012 8:08:38 AM cristiand Exp $
-// (@) Copyright Sigma Systems (Canada)
-// * Based on CVS log
-//==========================================================================
 package auth.impl.callbackHandlers;
 
 import java.io.IOException;
@@ -13,12 +8,6 @@ import javax.security.auth.callback.UnsupportedCallbackException;
 
 import auth.impl.callbacks.HttpUserPwdCallback;
 
-/**
- * Callback handler - invokes process method on the callbacks and
- * @version $Revision: $
- * @author $Author: cristiand $
- * @since $Date: Oct 26, 2012 $
- */
 public class UsrPwdCallbackHandler implements CallbackHandler {
 
     /* (non-Javadoc)

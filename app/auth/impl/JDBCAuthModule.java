@@ -1,8 +1,3 @@
-//==========================================================================
-// $Id: DBAuthModule.java,v 0.1 Oct 30, 2012 11:30:35 PM cristiand Exp $
-// (@) Copyright Sigma Systems (Canada)
-// * Based on CVS log
-//==========================================================================
 package auth.impl;
 
 import java.sql.Connection;
@@ -23,11 +18,6 @@ import auth.models.User;
 import auth.models.UserToken;
 import auth.utils.AuthUtils;
 
-/**
- * @version $Revision: $
- * @author $Author: cristiand $
- * @since $Date: Oct 30, 2012 $
- */
 public class JDBCAuthModule extends BasicUserPwdAuthModule {
 
     private static Logger       logger         = LoggerFactory.getLogger(JDBCAuthModule.class);

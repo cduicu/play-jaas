@@ -1,8 +1,3 @@
-//==========================================================================
-// $Id: OpenAMAuthModule.java,v 0.1 Nov 1, 2012 3:30:32 PM cristiand Exp $
-// (@) Copyright Sigma Systems (Canada)
-// * Based on CVS log
-//==========================================================================
 package auth.impl;
 
 import java.security.Principal;
@@ -26,11 +21,6 @@ import auth.impl.callbacks.OpenAMAttributesCallback;
 import auth.models.User;
 import auth.models.UserToken;
 
-/**
- * @version $Revision: $
- * @author $Author: cristiand $
- * @since $Date: Nov 1, 2012 $
- */
 public class OpenAMAuthModule extends AbstractAuthModule {
 
     private static Logger logger = LoggerFactory.getLogger(OpenAMAuthModule.class);

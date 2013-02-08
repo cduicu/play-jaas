@@ -23,7 +23,7 @@ public class SignAssertion {
     final static Signature      signature            = null;
     final static String         password             = "secret";
     final static String         certificateAliasName = "selfsigned";
-    final static String         fileName             = "C:\\Users\\Narendra\\Desktop\\SAML\\idpcert.jks";
+    final static String         fileName             = "idpcert.jks";
 
     private Credential getCredential(String fileName, String password, String certificateAliasName) {
         try {
@@ -64,7 +64,7 @@ public class SignAssertion {
         // This is also the default if a null SecurityConfiguration is specified
         SecurityConfiguration secConfig = Configuration.getGlobalSecurityConfiguration();
         // If null this would result in the default KeyInfoGenerator being used
-        String keyInfoGeneratorProfile = "XMLSignature";
+        //String keyInfoGeneratorProfile = "XMLSignature";
 
         try {
             SecurityHelper.prepareSignatureParams(signature, signingCredential, secConfig, null);

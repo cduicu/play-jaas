@@ -1,8 +1,3 @@
-//==========================================================================
-// $Id: UserToken.java,v 0.1 Oct 26, 2012 1:03:17 PM cristiand Exp $
-// (@) Copyright Sigma Systems (Canada)
-// * Based on CVS log
-//==========================================================================
 package auth.models;
 
 import java.io.UnsupportedEncodingException;
@@ -18,12 +13,6 @@ import com.ning.http.util.Base64;
 
 import play.mvc.Http;
 
-/**
- * @version $Revision: $
- * @author $Author: cristiand $
- * @since $Date: Oct 26, 2012 $
- */
-@SuppressWarnings("serial")
 public class UserToken extends User {
 
     private static Logger              logger   = LoggerFactory.getLogger(UserToken.class);

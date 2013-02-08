@@ -1,8 +1,3 @@
-//==========================================================================
-// $Id: HttpRequestParmCallback.java,v 0.1 Oct 30, 2012 2:24:57 PM cristiand Exp $
-// (@) Copyright Sigma Systems (Canada)
-// * Based on CVS log
-//==========================================================================
 package auth.impl.callbacks;
 
 import java.util.ArrayList;
@@ -16,11 +11,6 @@ import play.libs.WS;
 import play.mvc.Http.Cookie;
 import play.mvc.Http.Request;
 
-/**
- * @version $Revision: $
- * @author $Author: cristiand $
- * @since $Date: Oct 30, 2012 $
- */
 public class OpenAMAttributesCallback implements IHeadlessCallback {
 
     private static Logger logger = LoggerFactory.getLogger(OpenAMAttributesCallback.class);

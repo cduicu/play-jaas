@@ -1,8 +1,3 @@
-//==========================================================================
-// $Id: SendSoapMsg.java,v 1.4 2010/12/22 06:11:58 smitan Exp $
-// (@) Copyright Sigma Systems (Canada)
-// * Based on CVS log
-//==========================================================================
 package auth.utils;
 
 import java.io.IOException;
@@ -18,12 +13,6 @@ import org.opensaml.xml.util.Base64;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/**
- *
- * @version $Revision: 1.4 $
- * @author $Author: smitan $
- * @since $Date: 2010/12/22 06:11:58 $
- */
 public class SendSoapMsg {
 
     private static Logger logger = LoggerFactory.getLogger(SendSoapMsg.class);

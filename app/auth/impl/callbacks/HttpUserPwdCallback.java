@@ -1,21 +1,11 @@
-//==========================================================================
-// $Id: UserPwdCallback.java,v 0.1 Oct 30, 2012 7:39:26 PM cristiand Exp $
-// (@) Copyright Sigma Systems (Canada)
-// * Based on CVS log
-//==========================================================================
 package auth.impl.callbacks;
 
 import play.data.DynamicForm;
-import play.mvc.Controller;
+import play.data.Form;
 import play.mvc.Http;
 import play.mvc.Http.Request;
 import auth.models.UserToken;
 
-/**
- * @version $Revision: $
- * @author $Author: cristiand $
- * @since $Date: Oct 30, 2012 $
- */
 public class HttpUserPwdCallback implements IHeadlessCallback {
 
     public String              username;
@@ -50,7 +40,7 @@ public class HttpUserPwdCallback implements IHeadlessCallback {
                 password = req.queryString().get(REQ_PARM_PASSWORD)[0];
             }
         } else if (req.method().compareToIgnoreCase("post") == 0) {
-            DynamicForm frm = Controller.form().bindFromRequest();
+            DynamicForm frm = Form.form().bindFromRequest();
             tkn = frm.get(REQ_PARM_TOKEN);
             if (tkn != null) {
                 UserToken ut = UserToken.createUserToken(tkn, req);

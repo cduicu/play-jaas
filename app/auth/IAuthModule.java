@@ -1,8 +1,3 @@
-//==========================================================================
-// $Id: IAuthenticator.java,v 1.1.2.1 2012/07/10 19:06:57 cristiand Exp $
-// (@) Copyright Sigma Systems (Canada)
-// * Based on CVS log
-//==========================================================================
 package auth;
 
 import javax.security.auth.Subject;
@@ -14,10 +9,6 @@ import play.mvc.Result;
 
 /**
  * The Authentication Module interface.
- *
- * @version $Revision: 1.1.2.1 $
- * @author $Author: cristiand $
- * @since $Date: 2012/07/10 19:06:57 $
  */
 public interface IAuthModule extends LoginModule {
 

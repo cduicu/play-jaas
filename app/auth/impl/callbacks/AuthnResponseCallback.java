@@ -1,8 +1,3 @@
-//==========================================================================
-// $Id: AuthResponseCallback.java,v 0.1 Nov 6, 2012 5:20:08 PM cristiand Exp $
-// (@) Copyright Sigma Systems (Canada)
-// * Based on CVS log
-//==========================================================================
 package auth.impl.callbacks;
 
 import java.util.HashMap;
@@ -16,17 +11,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import play.data.DynamicForm;
-import play.mvc.Controller;
+import play.data.Form;
 import play.mvc.Http;
 import play.mvc.Http.Request;
 
 import auth.utils.SAMLUtils;
 
-/**
- * @version $Revision: $
- * @author $Author: cristiand $
- * @since $Date: Nov 6, 2012 $
- */
 public class AuthnResponseCallback implements IHeadlessCallback {
 
     private static Logger logger = LoggerFactory.getLogger(AuthnResponseCallback.class);
@@ -65,7 +55,7 @@ public class AuthnResponseCallback implements IHeadlessCallback {
      */
     @Override
     public void process() {
-        DynamicForm frm = Controller.form().bindFromRequest();
+        DynamicForm frm = Form.form().bindFromRequest();
         String samlResponse = null;
         if (req.queryString().get(SAML_RESPONSE) != null) {
             samlResponse = req.queryString().get(SAML_RESPONSE)[0];

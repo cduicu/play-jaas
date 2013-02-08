@@ -1,8 +1,3 @@
-//==========================================================================
-// $Id: Secured.java,v 1.1.2.3 2012/07/10 17:13:02 cristiand Exp $
-// (@) Copyright Sigma Systems (Canada)
-// * Based on CVS log
-//==========================================================================
 package auth;
 
 import javax.security.auth.Subject;
@@ -22,10 +17,6 @@ import auth.models.User;
  * The annotation to be used to secure controllers. <br>
  * TODO: pass the name of the authentication module in annotation to allow different authentication
  * schemes per project (for instance to differentiate between headless and UI calls)
- *
- * @version $Revision: $
- * @author $Author: cristiand $
- * @since $Date: Oct 26, 2012 $
  */
 public class Secured extends Security.Authenticator {
 

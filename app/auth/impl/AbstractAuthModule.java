@@ -1,8 +1,3 @@
-//==========================================================================
-// $Id: BasicAuthHandler.java,v 1.1.2.1 2012/07/10 19:06:57 cristiand Exp $
-// (@) Copyright Sigma Systems (Canada)
-// * Based on CVS log
-//==========================================================================
 package auth.impl;
 
 import java.security.Principal;
@@ -29,11 +24,6 @@ import auth.IAuthModule;
 import auth.WebSession;
 import auth.models.User;
 
-/**
- * @version $Revision: 1.1.2.1 $
- * @author $Author: cristiand $
- * @since $Date: 2012/07/10 19:06:57 $
- */
 public abstract class AbstractAuthModule implements IAuthModule {
 
     private static Logger     logger          = LoggerFactory.getLogger(AbstractAuthModule.class);

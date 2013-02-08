@@ -1,8 +1,3 @@
-//==========================================================================
-// $Id: AuthStub.java,v 1.1.2.2 2012/09/07 16:31:36 cristiand Exp $
-// (@) Copyright Sigma Systems (Canada)
-// * Based on CVS log
-//==========================================================================
 package auth.impl;
 
 import javax.security.auth.callback.CallbackHandler;
@@ -19,10 +14,6 @@ import auth.models.UserToken;
 
 /**
  * A concrete authentication module. This is a simple stub to be used for testing.
- *
- * @version $Revision: 1.1.2.2 $
- * @author $Author: cristiand $
- * @since $Date: 2012/09/07 16:31:36 $
  */
 public class PassThruAuthModule extends AbstractAuthModule {
 

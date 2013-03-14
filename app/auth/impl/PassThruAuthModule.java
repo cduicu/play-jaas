@@ -1,5 +1,9 @@
 package auth.impl;
 
+import java.security.Principal;
+import java.util.ArrayList;
+
+import javax.security.auth.callback.Callback;
 import javax.security.auth.callback.CallbackHandler;
 import javax.security.auth.login.LoginException;
 
@@ -9,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import play.mvc.Http;
 import play.mvc.Http.Context;
 import auth.impl.callbackHandlers.HeadlessCallbackHandler;
+import auth.impl.callbacks.PassThruCallback;
 import auth.models.User;
 import auth.models.UserToken;
 
@@ -35,7 +40,7 @@ public class PassThruAuthModule extends AbstractAuthModule {
      */
     @Override
     public CallbackHandler getCallbackHandler(Context ctx) {
-        return new HeadlessCallbackHandler();
+        return new HeadlessCallbackHandler(ctx);
     }
 
     /*
@@ -49,9 +54,17 @@ public class PassThruAuthModule extends AbstractAuthModule {
         if (callbackHandler == null) {
             throw new LoginException("Error: no CallbackHandler available!");
         }
-        Http.Request req = Context.current.get().request(); // I'm counting on having been set
-                                                            // before calling login
+
+        ArrayList<Callback> callbacks = new ArrayList<Callback>();
+        callbacks.add(new PassThruCallback());
+
         try {
+            Callback[] cb = new Callback[callbacks.size()];
+            callbackHandler.handle(callbacks.toArray(cb));
+
+            Http.Request req = ((PassThruCallback) cb[0]).getOriginalRequest();
+
+            pending = new ArrayList<Principal>();
             User user = UserToken.createUserToken("demo", "cangetin", req);
             user.fullName = "John Doe";
             pending.add(user);

@@ -44,8 +44,6 @@ public class Authentication extends Controller {
             } else {
                 lc = new LoginContext(auth.getModuleName(), cbh);
             }
-            Context.current.set(ctx);
-            //auth.setContext(ctx); // auth module gets initialized ... set context now
             lc.login();
             return auth.onAuthSucceeded(lc.getSubject());
         } catch (LoginException e) {

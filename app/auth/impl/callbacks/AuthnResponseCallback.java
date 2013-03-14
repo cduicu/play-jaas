@@ -13,11 +13,10 @@ import org.slf4j.LoggerFactory;
 import play.data.DynamicForm;
 import play.data.Form;
 import play.mvc.Http;
-import play.mvc.Http.Request;
-
+import play.mvc.Http.Context;
 import auth.utils.SAMLUtils;
 
-public class AuthnResponseCallback implements IHeadlessCallback {
+public class AuthnResponseCallback extends HeadlessCallback {
 
     private static Logger logger = LoggerFactory.getLogger(AuthnResponseCallback.class);
     private static final String SAML_RESPONSE = "SAMLResponse";
@@ -25,7 +24,6 @@ public class AuthnResponseCallback implements IHeadlessCallback {
     private String errMsg = null;
     private Map<String,String> attrs = new HashMap<String, String>(); // output attributes
     private SAMLUtils samlUtils;
-    private Request req;
     private boolean processed = false;
     private String relayState = null;
 
@@ -33,9 +31,8 @@ public class AuthnResponseCallback implements IHeadlessCallback {
      * @param samlUtils
      * @param attrs2
      */
-    public AuthnResponseCallback(Http.Request req, SAMLUtils samlUtils) {
+    public AuthnResponseCallback(SAMLUtils samlUtils) {
         this.samlUtils = samlUtils;
-        this.req = req;
     }
 
     public String getAttribute(String attrNm) {
@@ -55,6 +52,8 @@ public class AuthnResponseCallback implements IHeadlessCallback {
      */
     @Override
     public void process() {
+        Context.current.set(getOriginalContext());
+        Http.Request req = getOriginalRequest();
         DynamicForm frm = Form.form().bindFromRequest();
         String samlResponse = null;
         if (req.queryString().get(SAML_RESPONSE) != null) {

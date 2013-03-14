@@ -139,18 +139,4 @@ public class SendSoapMsg {
         return responseStr;
     }
 
-    /***/
-//    public static void main(String[] args) throws Exception {
-//        String server = "http://torvm-core12.sigmasys.net:8080/idp/profile/SAML2/SOAP/AttributeQuery";
-//        SendSoapMsg soapSender = new SendSoapMsg(server);
-//        soapSender.setVerbose(true);
-//
-//        FileInputStream fi = new FileInputStream(
-//                new File("C:\\home\\sso1\\public\\xmlSample\\SAMLAttributeQuery.xml"));
-//        String s = SAMLUtil.readInputStreamAsString(fi);
-//        String reply = soapSender.sendMsg(s);
-//        System.out.println(reply);
-//        soapSender.log("DONE!");
-//    }
-
 }

@@ -12,7 +12,6 @@ import org.slf4j.LoggerFactory;
 
 import play.mvc.Http;
 import play.mvc.Http.Context;
-import play.mvc.Http.Request;
 import auth.impl.callbackHandlers.UsrPwdCallbackHandler;
 import auth.impl.callbacks.HttpUserPwdCallback;
 import auth.models.User;
@@ -28,7 +27,7 @@ public abstract class BasicUserPwdAuthModule extends AbstractAuthModule {
      */
     @Override
     public CallbackHandler getCallbackHandler(Context ctx) {
-        return new UsrPwdCallbackHandler();
+        return new UsrPwdCallbackHandler(ctx);
     }
 
     /*
@@ -42,10 +41,9 @@ public abstract class BasicUserPwdAuthModule extends AbstractAuthModule {
         if (callbackHandler == null) {
             throw new LoginException("Error: no CallbackHandler available!");
         }
-        Http.Request req = Context.current.get().request(); // I'm counting on having been set
-                                                            // before calling login
+
         ArrayList<Callback> callbacks = new ArrayList<Callback>();
-        callbacks.add(new HttpUserPwdCallback(req));
+        callbacks.add(new HttpUserPwdCallback());
 
         try {
             Callback[] cb = new Callback[callbacks.size()];
@@ -53,6 +51,7 @@ public abstract class BasicUserPwdAuthModule extends AbstractAuthModule {
 
             String username = ((HttpUserPwdCallback) cb[0]).username;
             String password = ((HttpUserPwdCallback) cb[0]).password;
+            Http.Request req = ((HttpUserPwdCallback) cb[0]).getOriginalRequest();
 
             pending = new ArrayList<Principal>();
             User user = validateCredentials(username, password, req);
@@ -66,6 +65,7 @@ public abstract class BasicUserPwdAuthModule extends AbstractAuthModule {
         return false;
     }
 
-    protected abstract User validateCredentials(String username, String password, Request req) throws LoginException;
+    protected abstract User validateCredentials(String username, String password, Http.Request req)
+            throws LoginException;
 
 }

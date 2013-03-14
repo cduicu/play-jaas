@@ -18,7 +18,7 @@ import play.mvc.Http;
 import play.mvc.Http.Context;
 import play.mvc.Result;
 import auth.WebSession;
-import auth.impl.callbackHandlers.SAML2CallbackHandler;
+import auth.impl.callbackHandlers.HeadlessCallbackHandler;
 import auth.impl.callbacks.AuthnResponseCallback;
 import auth.models.User;
 import auth.models.UserToken;
@@ -27,6 +27,7 @@ import auth.utils.SAMLUtils;
 /**
  * I am passing information from the login() to the onAuthSucceeded() via a fake principal PendingPrincipal.
  * TODO: is there a better way?
+ *
  */
 public class FederatedAuthModule extends AbstractAuthModule {
 
@@ -45,9 +46,9 @@ public class FederatedAuthModule extends AbstractAuthModule {
     private SAMLUtils samlUtils;
 
     /**
-     * @version $Revision: $
+     * @version $Revision: 1.1.2.3 $
      * @author $Author: cristiand $
-     * @since $Date: Nov 6, 2012 $
+     * @since $Date: 2013/03/13 20:34:04 $
      */
     public class PendingPrincipal implements Principal {
 
@@ -84,7 +85,7 @@ public class FederatedAuthModule extends AbstractAuthModule {
      */
     @Override
     public CallbackHandler getCallbackHandler(Context ctx) {
-        return new SAML2CallbackHandler();
+        return new HeadlessCallbackHandler(ctx);
     }
 
     /* (non-Javadoc)
@@ -104,10 +105,9 @@ public class FederatedAuthModule extends AbstractAuthModule {
         if (callbackHandler == null) {
             throw new LoginException("Error: no CallbackHandler available!");
         }
-        Http.Request req = Context.current.get().request(); // I'm counting on having been set
-                                                            // before calling login
+
         ArrayList<Callback> callbacks = new ArrayList<Callback>();
-        callbacks.add(new AuthnResponseCallback(req, samlUtils));
+        callbacks.add(new AuthnResponseCallback(samlUtils));
         try {
             // handle callbacks
             Callback[] cb = new Callback[callbacks.size()];
@@ -115,6 +115,7 @@ public class FederatedAuthModule extends AbstractAuthModule {
 
             // process callbacks results
             boolean respProcessed = ((AuthnResponseCallback)cb[0]).isResponseProcessed();
+            Http.Request req = ((AuthnResponseCallback)cb[0]).getOriginalRequest();
 
             pending = new ArrayList<Principal>();
             if (!respProcessed) {

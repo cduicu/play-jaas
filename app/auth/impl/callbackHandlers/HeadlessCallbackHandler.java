@@ -6,9 +6,17 @@ import javax.security.auth.callback.Callback;
 import javax.security.auth.callback.CallbackHandler;
 import javax.security.auth.callback.UnsupportedCallbackException;
 
-import auth.impl.callbacks.IHeadlessCallback;
+import play.mvc.Http;
+import play.mvc.Http.Context;
+import auth.impl.callbacks.HeadlessCallback;
 
 public class HeadlessCallbackHandler implements CallbackHandler {
+
+    private Context ctx;
+
+    public HeadlessCallbackHandler(Http.Context ctx) {
+        this.ctx = ctx;
+    }
 
     /* (non-Javadoc)
      * @see javax.security.auth.callback.CallbackHandler#handle(javax.security.auth.callback.Callback[])
@@ -16,9 +24,9 @@ public class HeadlessCallbackHandler implements CallbackHandler {
     @Override
     public void handle(Callback[] callbacks) throws IOException, UnsupportedCallbackException {
         for (int i=0; i<callbacks.length; i++) {
-            if (callbacks[i] instanceof IHeadlessCallback) {
-                IHeadlessCallback cb = (IHeadlessCallback) callbacks[i];
-                cb.process();
+            if (callbacks[i] instanceof HeadlessCallback) {
+                HeadlessCallback cb = (HeadlessCallback) callbacks[i];
+                cb.process(ctx);
             }
         }
     }

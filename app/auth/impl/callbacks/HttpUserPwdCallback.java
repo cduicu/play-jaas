@@ -3,26 +3,23 @@ package auth.impl.callbacks;
 import play.data.DynamicForm;
 import play.data.Form;
 import play.mvc.Http;
-import play.mvc.Http.Request;
+import play.mvc.Http.Context;
 import auth.models.UserToken;
 
-public class HttpUserPwdCallback implements IHeadlessCallback {
+public class HttpUserPwdCallback extends HeadlessCallback {
 
     public String              username;
     public String              password;
     public String              tkn;
-    private Request            req;
 
     public static final String REQ_PARM_USERNAME = "username";
     public static final String REQ_PARM_PASSWORD = "password";
     public static final String REQ_PARM_TOKEN    = "token";
 
-    public HttpUserPwdCallback(Http.Request req) {
-        this.req = req;
-    }
-
     @Override
     public void process() {
+        Context.current.set(getOriginalContext());
+        Http.Request req = getOriginalRequest();
         if (req.method().compareToIgnoreCase("get") == 0) {
             if (req.queryString().get(REQ_PARM_TOKEN) != null) {
                 tkn = req.queryString().get(REQ_PARM_TOKEN)[0];

@@ -8,13 +8,12 @@ import org.slf4j.LoggerFactory;
 
 import play.libs.F.Function;
 import play.libs.WS;
+import play.mvc.Http;
 import play.mvc.Http.Cookie;
-import play.mvc.Http.Request;
 
-public class OpenAMAttributesCallback implements IHeadlessCallback {
+public class OpenAMAttributesCallback extends HeadlessCallback {
 
     private static Logger logger = LoggerFactory.getLogger(OpenAMAttributesCallback.class);
-    private Request req;
     private ArrayList<String> lst;
     private String openAMUrl;
     private HashMap<String,String> attrs = new HashMap<String,String>();
@@ -23,8 +22,7 @@ public class OpenAMAttributesCallback implements IHeadlessCallback {
      * @param req2
      * @param lst
      */
-    public OpenAMAttributesCallback(Request req, String openAmUrl, ArrayList<String> lst) {
-        this.req = req;
+    public OpenAMAttributesCallback(String openAmUrl, ArrayList<String> lst) {
         this.lst = lst;
         this.openAMUrl = openAmUrl;
     }
@@ -34,6 +32,7 @@ public class OpenAMAttributesCallback implements IHeadlessCallback {
         if (openAMUrl == null) {
             logger.trace("OpenAM URL not configured!");
         }
+        Http.Request req = getOriginalRequest();
         Cookie c = req.cookies().get("iPlanetDirectoryPro");
         if (c == null) {
             logger.trace("Not Authenticated!!!");

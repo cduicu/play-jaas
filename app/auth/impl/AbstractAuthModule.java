@@ -17,7 +17,6 @@ import org.slf4j.LoggerFactory;
 import play.i18n.Messages;
 import play.libs.Json;
 import play.mvc.Controller;
-import play.mvc.Http.Context;
 import play.mvc.Result;
 import auth.Configuration;
 import auth.IAuthModule;
@@ -27,7 +26,6 @@ import auth.models.User;
 public abstract class AbstractAuthModule implements IAuthModule {
 
     private static Logger     logger          = LoggerFactory.getLogger(AbstractAuthModule.class);
-    protected Context         ctx;
     protected Map<String, ?>  attrs;
     protected User            user;
 
@@ -87,10 +85,10 @@ public abstract class AbstractAuthModule implements IAuthModule {
     public Result onAuthSucceeded(Subject subject) {
         User user = getUser(subject);
         logger.info("User '" + user.name + "' successfully signed in!");
-        WebSession session = WebSession.newSession(Context.current().session());
+        WebSession session = WebSession.newSession(Controller.ctx().session());
         session.put("user", subject);
         if (Configuration.getInstance().followOriginalUri) {
-            return Controller.redirect(Context.current().request().uri());
+            return Controller.redirect(Controller.ctx().request().uri());
         } else {
             return Controller.redirect(Configuration.getInstance().urlAuthSucceeded);
         }

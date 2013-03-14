@@ -1,16 +1,13 @@
 package auth.impl.callbacks;
 
 import play.mvc.Http;
-import play.mvc.Http.Request;
 
-public class HttpRequestHeaderCallback implements IHeadlessCallback {
+public class HttpRequestHeaderCallback extends HeadlessCallback {
 
     private String parmVal;
     private String parmName;
-    private Request req;
 
-    public HttpRequestHeaderCallback(Http.Request req, String name) {
-        this.req = req;
+    public HttpRequestHeaderCallback(String name) {
         this.parmName = name;
     }
 
@@ -27,6 +24,7 @@ public class HttpRequestHeaderCallback implements IHeadlessCallback {
      */
     @Override
     public void process() {
+        Http.Request req = getOriginalRequest();
         parmVal = req.getHeader(parmName);
     }
 

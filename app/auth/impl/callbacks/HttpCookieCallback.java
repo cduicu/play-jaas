@@ -2,21 +2,19 @@ package auth.impl.callbacks;
 
 import play.mvc.Http;
 import play.mvc.Http.Cookie;
-import play.mvc.Http.Request;
 
-public class HttpCookieCallback implements IHeadlessCallback {
+public class HttpCookieCallback extends HeadlessCallback {
 
     private String parmVal;
     private String parmName;
-    private Request req;
 
-    public HttpCookieCallback(Http.Request req, String name) {
-        this.req = req;
+    public HttpCookieCallback(String name) {
         this.parmName = name;
     }
 
     @Override
     public void process() {
+        Http.Request req = getOriginalRequest();
         Cookie c = req.cookies().get(parmName);
         if (c!= null) parmVal = c.value();
     }

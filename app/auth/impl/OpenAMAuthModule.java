@@ -15,6 +15,7 @@ import org.slf4j.LoggerFactory;
 import play.mvc.Http;
 import play.mvc.Http.Context;
 import auth.impl.callbackHandlers.HeadlessCallbackHandler;
+import auth.impl.callbacks.HeadlessCallback;
 import auth.impl.callbacks.HttpCookieCallback;
 import auth.impl.callbacks.HttpRequestHeaderCallback;
 import auth.impl.callbacks.OpenAMAttributesCallback;
@@ -41,7 +42,7 @@ public class OpenAMAuthModule extends AbstractAuthModule {
      */
     @Override
     public CallbackHandler getCallbackHandler(Context ctx) {
-        return new HeadlessCallbackHandler();
+        return new HeadlessCallbackHandler(ctx);
     }
 
     /* (non-Javadoc)
@@ -61,22 +62,23 @@ public class OpenAMAuthModule extends AbstractAuthModule {
         if (callbackHandler == null) {
             throw new LoginException("Error: no CallbackHandler available!");
         }
-        Http.Request req = Context.current.get().request(); // I'm counting on having been set
-                                                            // before calling login
-        ArrayList<Callback> callbacks = new ArrayList<Callback>();
-        callbacks.add(new HttpCookieCallback(req, userAttr));
-        callbacks.add(new HttpCookieCallback(req, fullNameAttr));
-        callbacks.add(new HttpCookieCallback(req, phoneAttr));
-        callbacks.add(new HttpCookieCallback(req, emailAttr));
 
-        callbacks.add(new HttpRequestHeaderCallback(req, userAttr));
-        callbacks.add(new HttpRequestHeaderCallback(req, fullNameAttr));
-        callbacks.add(new HttpRequestHeaderCallback(req, phoneAttr));
-        callbacks.add(new HttpRequestHeaderCallback(req, emailAttr));
+        ArrayList<Callback> callbacks = new ArrayList<Callback>();
+        callbacks.add(new HttpCookieCallback(userAttr));
+        callbacks.add(new HttpCookieCallback(fullNameAttr));
+        callbacks.add(new HttpCookieCallback(phoneAttr));
+        callbacks.add(new HttpCookieCallback(emailAttr));
+
+        callbacks.add(new HttpRequestHeaderCallback(userAttr));
+        callbacks.add(new HttpRequestHeaderCallback(fullNameAttr));
+        callbacks.add(new HttpRequestHeaderCallback(phoneAttr));
+        callbacks.add(new HttpRequestHeaderCallback(emailAttr));
 
         try {
             Callback[] cb = new Callback[callbacks.size()];
             callbackHandler.handle(callbacks.toArray(cb));
+            Http.Context ctx = null;
+            Http.Request req = null;
 
             String userid = null, fullname = null, email = null, phone = null;
             for (int i=0; i<cb.length; i++) {
@@ -97,15 +99,20 @@ public class OpenAMAuthModule extends AbstractAuthModule {
                 } else {
                     logger.info("Don't know how to work with callback: " + cb[i].getClass().getName());
                 }
+                if (cb[i] instanceof HeadlessCallback) {
+                    ctx = ((HeadlessCallback)cb[i]).getOriginalContext();
+                    req = ((HeadlessCallback)cb[i]).getOriginalRequest();
+                }
             }
 
-            if (userid == null) {
+            // TODO - try using REST API ...
+            if (userid == null && ctx != null) {
                 // if not found in HTTP request header or cookies, fall back to back channel call to OpenAM
                 logger.debug("nothing found in headers, try REST API ...");
                 ArrayList<String> lst = new ArrayList<String>();
                 lst.add("uid"); lst.add("cn"); lst.add("telephonenumber"); lst.add("mail");
-                OpenAMAttributesCallback amcb = new OpenAMAttributesCallback(req, openAmUrl, lst);
-                amcb.process();
+                OpenAMAttributesCallback amcb = new OpenAMAttributesCallback(openAmUrl, lst);
+                amcb.process(ctx);
                 userid = amcb.getValue("uid");
                 if (fullname == null) fullname = amcb.getValue("cn");
                 if (phone == null) phone = amcb.getValue("telephonenumber");

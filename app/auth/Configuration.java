@@ -61,7 +61,7 @@ public class Configuration {
 
     // some default values
     private static Configuration instance;
-    public String                authnHandler           = HANDLER_OPENAM;
+    public String                authnHandler           = HANDLER_USER_PWD_STUB;
     public String                authFailedResponseType = RESPONSE_TYPE_JSON;
     public String                urlLogout              = "/";
     public String                urlAuthSucceeded       = "/";

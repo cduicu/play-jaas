@@ -1,27 +1,25 @@
 package auth.impl;
 
+import auth.Configuration;
+import auth.IAuthModule;
+import auth.WebSession;
+import auth.models.User;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import play.i18n.Messages;
+import play.libs.Json;
+import play.mvc.Controller;
+import play.mvc.Result;
+
+import javax.security.auth.Subject;
+import javax.security.auth.callback.CallbackHandler;
+import javax.security.auth.login.LoginException;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
-import javax.security.auth.Subject;
-import javax.security.auth.callback.CallbackHandler;
-import javax.security.auth.login.LoginException;
-
-import org.codehaus.jackson.node.ObjectNode;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import play.i18n.Messages;
-import play.libs.Json;
-import play.mvc.Controller;
-import play.mvc.Result;
-import auth.Configuration;
-import auth.IAuthModule;
-import auth.WebSession;
-import auth.models.User;
 
 public abstract class AbstractAuthModule implements IAuthModule {
 
@@ -95,7 +93,9 @@ public abstract class AbstractAuthModule implements IAuthModule {
     }
 
     /**
-     * @param user
+     *
+     * @param s
+     * @param p
      */
     private void putPrincipal(Set<Principal> s, Principal p) {
         logger.trace("added principal: " + p);

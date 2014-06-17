@@ -1,13 +1,12 @@
 package auth;
 
-import java.io.Serializable;
-import java.util.HashMap;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import play.cache.Cache;
 import play.mvc.Http;
+
+import java.io.Serializable;
+import java.util.HashMap;
 
 /**
  * Simulates the Servlet's HTTPSession object.

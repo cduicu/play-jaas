@@ -1,7 +1,7 @@
 play-jaas
 =========
 
-This is an authentication module for Play 2.1.0 framework which performs the authentication via JAAS.
+This is an authentication module for Play 2.2.2 framework which performs the authentication via JAAS.
 Note that this will protect the controllers and not the resources in the /public directory. 
 
 Dependencies and 3rd Party Libraries
@@ -10,7 +10,7 @@ The project contains a number of authentication modules.
 Depending on which module you want you may depend on additional 3rd party libraries. The following is a 
 list of libraries needed to compile the code.
 
-- Play 2.1.0
+- Play 2.2.2
 - OpenSAML Stack (in /lib directory):
     - opensaml-2.5.3.jar
     - openws-1.4.4.jar

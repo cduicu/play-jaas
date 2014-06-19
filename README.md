@@ -20,15 +20,44 @@ list of libraries needed to compile the code.
  
  Usage
  -----
+ - add the play-jaas library as dependency to your project. (ie. copy the jar to lib/ folder of your Play project)
+ 
  - Annotate the controllers you want to protect with:
  @Security.Authenticated(Secured.class)
  
  - Configure the authentication - jaas configuration. 
- A JAAS configuration file must be provided to the JVM. Read the javadoc from auth.Configuration for more details.
+ A JAAS configuration file must be provided to the JVM.  You can do that via the standard system property defined by JAAS (-Djava.security.auth.login.config=[absolutePath]/[YourJAASConfigFile])
+Example JAAS configuration file content for built-in modules:
+
+``` 
+  PassThruAuth {
+      auth.impl.PassThruAuthModule required debug=true;
+  };
+  StubAuth {
+      auth.impl.StubAuthModule required debug=true;
+  };
+  FileAuth {
+      auth.impl.FileAuthModule required debug=true pwdFile="c:/passwd";
+  };
+  JDBCAuth {
+      auth.impl.JDBCAuthModule required dbDriver="com.mysql.jdbc.Driver" dbURL="jdbc:mysql://localhost:3306/login";
+  };
+  OpenAMAuth {
+      auth.impl.OpenAMAuthModule required debug=true userAttr="username" openAmUrl="http://openam.mybox.com:8080/openam";
+  };
+  FederatedAuth {
+      auth.impl.FederatedAuthModule required debug=true
+      userAttr="username"
+      idpUrl="http://openam.mybox.com:8080/openam/SSOPOST/metaAlias/idp"
+      samlIssuerUrl="http://play.mybox.com:9000"
+      assertionConsumerServiceUrl="http://play.mybox.com:9000/sp/consumer";
+  };
+ ```
  
  - Configure the authentication - runtime configuration
  Select the authentication module you want to use. Depending on the module used you might need to do more configuration. 
  For instance if you use OpenAM you need to setup OpenAM.
+ Configuration is done by changing the defaults in the auth.Configuration class.
  
  Authentication Modules
  -----------------------
